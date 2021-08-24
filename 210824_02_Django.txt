@@ -1,0 +1,49 @@
+2021년 8월 24일 화요일 (2) Django
+
+[장고 프로그램 설치]
+관리자 권한으로 anaconda prompt 실행
+장고 버전 확인
+  (base) c:\MyTest>python -m django --version
+장고 path 확인
+  (base) c:\MyTest>python -c "import django; print(django.__path__)"
+  ['C:\\ProgramData\\Anaconda3\\lib\\site-packages\\django']
+장고 설치
+  (base) c:\MyTest>pip install Django
+
+[프로젝트 뼈대 만들기]
+mysite라는 프로젝트 만듦
+  (base) c:\MyTest>django-admin startproject mysite
+  mysite 디렉토리 이름 변경
+  (base) c:\MyTest>move mysite projectsite
+프로젝트 루트 디렉토리 projectsite로 이동해서 polls라는 어플리케이션을 만드는 명령 실행
+  (base) c:\MyTest>cd projectsite
+  (base) c:\MyTest\projectsite>python manage.py startapp polls
+settings.py 파일에 프로젝트에 필요한 설정 값들을 지정(디렉터리위치, 로그형식, 어플리케이션 이름 등 지정)
+    ALLOWED_HOSTS 항목을 적절하게 지정
+        ALLOWED_HOSTS = ['localhost, '127.0.0.1'] #ip는 터미널에 ipconfig 로 확인
+    어플리케이션들은 모두 설정 파일에 등록(polls 어플리케이션도 등록)
+        INSTALLED_APPS = [ ~, 'polls.apps.PollsConfig']
+    프로젝트에 사용할 데이터베이스 엔진
+        장고는 디폴트로 SQLite3 데이터베이스 엔진을 사용하도록 설정
+    타임존 지정(기본은 세계표준시(UTC)로 되어 있음. 함국 시간으로 변경)
+        #TIME_ZONE = 'UTC'
+        TIME_ZONE = 'Asiz/Seoul'
+기본 테이블 생성
+    migrate 명령은 데이터베이스에 변경사항이 잇을 때 반영해주는 명령
+    (base) C:\MyTest\projectsite>python manage.py migrate
+작업 확인(서버 실행)
+      python manage.py runserver 127.0.0.1:80
+Admin 사이트 접속
+    http://127.0.0.1:80/admin
+Admin 로긴을 위한 관리자(슈퍼유저) 생성
+    (base) C:\MyTest\projectsite>python manage.py createsuperuser
+Admin 사이트 로긴, 사용자 확인
+
+테이블 확인
+    (base) C:\MyTest\projectsite>python manage.py dbshell
+    sqlite> .tables
+    sqlite> .quit
+프로젝트 골격 확인
+  (base) C:\MyTest\projectsite>cd ..
+  (base) C:\MyTest>tree /F projectsite
+
